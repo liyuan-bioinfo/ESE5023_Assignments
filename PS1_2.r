@@ -9,30 +9,27 @@ rm(list=ls())
 M1 <- matrix(sample(c(0:50), 50, replace = TRUE), nrow = 5, ncol = 10)
 M2 <- matrix(sample(c(0:50), 50, replace = TRUE), nrow = 10, ncol = 5)
 
-M1 <- matrix(sample(c(0:1), 3, replace = TRUE), nrow = 2, ncol = 3)
-M2 <- matrix(sample(c(0:3), 3, replace = TRUE), nrow = 3, ncol = 2)
 
-output <- matrix(nrow=5,ncol=5)
-for(i in 1:2){
-  
-  for(j in 1:3){
-    for(jj in 1:2){
-    #print(M1[i,j])
-    print(M1[i,j] + M2[j,jj]) 
-    }
-  }
-  print("#######")
-  
-}
 #---------------2.2---------------#
 ##Write a function Matrix_multip to do matrix multiplication, 
 ##i.e., M1 * M2. Here you are only allowed to use for loop, * operator, and + operator. 
 ##Check your result with the %*% operator.
-Matrix_multip <- function(M1, M2){
-  for(i in M1)
+Matrix_multip <- function(M1,M2){
+  output <- matrix(nrow=5,ncol=5)
+  for(i in 1:5){
+    for(j in 1:5){
+      tmp<-0 #for save line
+      for(jj in 1:10){
+        tmp = tmp + (M1[i,jj] * M2[jj,j]) 
+      }
+      output[i,j] <- tmp
+    }
+    
+  }
+  print(output)
 }
+  
 
-M1 <- matrix(sample(c(0:1), 3, replace = TRUE), nrow = 2, ncol = 3)
-M2 <- matrix(sample(c(0:3), 3, replace = TRUE), nrow = 3, ncol = 2)
-
-M1 %*% M2 #for validate output of calling function
+ #for validate output of calling function
+Matrix_multip(M1,M2)
+M1 %*% M2
