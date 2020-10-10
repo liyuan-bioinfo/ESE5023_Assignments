@@ -6,7 +6,7 @@
 #Details
 ##7.1 [5 points] Load the csv, XLS, or XLSX file, and clean possible data points with missing values or bad quality.
 rm(list = ls())
-setwd("./")
+setwd("C:/Users/Len/Desktop/PS")
 data <- read.csv("MHD-ads_1994.csv",header = T)
 
 data_rm_missing <- data[which(!is.na(data$HFC.134a)),] #rm na

@@ -43,8 +43,6 @@ Least_moves <- function(x){#X  money!
     
       #单个集合全部step结束后,进行判断当前长度是否能够满足
       if(tmp_sum == x  ){
-        #print(paste("money:",x," min_length:",length(condition),sep=" "))
-        #print(condition)
         
         return(paste("money:",x," min_step:",length(condition),sep=" ")) #有最小结果就结束,不考虑多种情况
       }
