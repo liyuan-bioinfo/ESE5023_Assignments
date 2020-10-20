@@ -1,7 +1,7 @@
 #
 
 ######################################
-#       initial the params
+#       1, initial the params
 ######################################
 rm(list=ls())
 getwd()
@@ -9,6 +9,9 @@ getwd()
 library("dplyr")
 library("ggplot2")
 
+######################################
+#       2, main
+######################################
 #1. Significant earthquakes since 2150 B.C.
 #The Significant Earthquake Database contains information on destructive earthquakes 
 #from 2150 B.C. to the present. 
@@ -26,6 +29,7 @@ Sig_Eqs %>% group_by(COUNTRY) %>%
   summarize(total_num_death = sum(TOTAL_DEATHS,na.rm = T)) %>% 
   arrange(desc(total_num_death)) %>% 
   head(10)
+
 ##1.3 [10 points] Compute the total number of earthquakes with magnitude larger than 6.0 
 ##(use column EQ_PRIMARY as the magnitude) worldwide each year, and then plot the time series. 
 ##Do you observe any trend? Explain why or why not?
@@ -48,7 +52,6 @@ CountEq_LargestEq <- function(country){
     arrange(desc(EQ_PRIMARY)) %>% 
     select(YEAR,MONTH,DAY,HOUR,MINUTE,SECOND) %>% 
     head(1)
-  #output <- c(output, as.character(paste(date_country$YEAR,date_country$MONTH,date_country$DAY,sep="-")))
   output <- c(output, date_country$YEAR)
   return(output)
   
