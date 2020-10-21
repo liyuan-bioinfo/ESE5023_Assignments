@@ -73,3 +73,4 @@ report_data <- as_tibble(data.frame(year=x,sum=y,country=country_eq)) %>%
   arrange(desc(sum))
 write.table(report_data,file="PS2_1_report.txt",sep="\t",row.names = TRUE)
 
+ 
