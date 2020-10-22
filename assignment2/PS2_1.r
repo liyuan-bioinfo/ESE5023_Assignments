@@ -1,11 +1,14 @@
-#
+#author：Liyuan
+#2020.10.22
+#reference：HuangKai help me find the bug of question 1.4
+#and ‘%in%’ was cited in https://bbs.pinggu.org/thread-6181973-1-1.html
 
 ######################################
 #       initial the params
 ######################################
 rm(list=ls())
 getwd()
-#setwd("C:/Users/Len/Desktop/PS/")
+setwd("ESE5023")
 library("dplyr")
 library("ggplot2")
 
@@ -34,22 +37,23 @@ Sig_Eqs %>% filter(EQ_PRIMARY >= 6.0) %>% group_by(YEAR) %>%
   arrange(desc(YEAR)) %>% 
   ggplot(aes(x=YEAR, y=total_num_eq)) + 
   geom_line()
-  
+
 ##1.4 [10 points] Write a function CountEq_LargestEq that returns both (1) 
 ##the total number of earthquakes since 2150 B.C. 
 ##in a given country AND (2) the date of the largest earthquake ever happened in this country. 
 ##Apply CountEq_LargestEq to each country, report your results in a descending order.
 CountEq_LargestEq <- function(country){
   output <- c(  ##1count the total number
-                Sig_Eqs %>% filter(COUNTRY == country) %>% 
-    summarize(total_num_eq =n()))
-                ##2 date of the largest earchquake ever happened in this country.  
+    Sig_Eqs %>% filter(COUNTRY == country) %>% 
+      summarize(total_num_eq =n()))
+  #country="GREECE"
+  ##2 date of the largest earchquake ever happened in this country. 
   date_country <- Sig_Eqs %>% filter(COUNTRY == country) %>% 
-    arrange(desc(EQ_PRIMARY)) %>% 
-    select(YEAR,MONTH,DAY,HOUR,MINUTE,SECOND) %>% 
-    head(1)
-  #output <- c(output, as.character(paste(date_country$YEAR,date_country$MONTH,date_country$DAY,sep="-")))
-  output <- c(output, date_country$YEAR)
+    select(YEAR,MONTH,DAY,EQ_PRIMARY) %>%
+    mutate(date=paste(YEAR,MONTH,DAY,sep="/")) %>% #add date line
+    filter(EQ_PRIMARY %in% max(EQ_PRIMARY,na.rm = T))  #if EQ_PRIMARY is na, save it.
+
+    output <- c(output, date_country$date)
   return(output)
   
 }
@@ -60,17 +64,24 @@ date_eq <- c()
 country_eq <-c()
 #use for cycle to iterate every country
 for(i in unique(Sig_Eqs$COUNTRY)){
+
   r <- CountEq_LargestEq(i)
   num_eq <- c(num_eq,r[1])
-  date_eq <- c(date_eq,r[2])
+  temp_mul_date=""
+  if(length(r)>1){#for combine the different max(eq)in same country!
+    for(j in (2:length(r))){
+      temp_mul_date <- paste(r[[j]]," ",temp_mul_date,sep="")
+    }
+  }else{
+    temp_mul_date =" "
+  }
+  date_eq <- c(date_eq,temp_mul_date)
   country_eq <- c(country_eq,i)
 }
-x<-as.numeric(date_eq)
-y<-as.numeric(num_eq)
+#x<-as.numeric(date_eq)
+num_eq<-as.numeric(num_eq)
 
 #report data and save to plain file
-report_data <- as_tibble(data.frame(year=x,sum=y,country=country_eq)) %>% 
+report_data <- as_tibble(data.frame(date=date_eq,sum=num_eq,country=country_eq)) %>% 
   arrange(desc(sum))
 write.table(report_data,file="PS2_1_report.txt",sep="\t",row.names = TRUE)
-
- 
