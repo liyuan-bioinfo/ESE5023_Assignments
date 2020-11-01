@@ -1,5 +1,5 @@
 #author：Liyuan
-#2. Was Tyrannosaurus Rex Warm-Blooded?
+#20201101
 
 
 ###################################################
@@ -25,12 +25,12 @@ Rib_16=c(11.10,11.22,11.29,11.49,NA,NA),
   Distal_caudal=c(11.95,12.01,12.25,12.30,12.39,NA)
 ))
 
-  anova_one_way <- aov( Rib_16~ Gastralia,data=data_tibble)
-  temp_p <- summary(anova_one_way)[[1]][1,5] #pvalue
-  
-  name <- c("Rib 16","Gastralia" ,"Gastralia2", "Dorsal vertebra", "Dorsal vertebra2", "Femur", "Tibia",
+
+###################################################
+#           2. get Pvalue matrix and draw plot
+###################################################
+name <- c("Rib 16","Gastralia" ,"Gastralia2", "Dorsal vertebra", "Dorsal vertebra2", "Femur", "Tibia",
             "Metatarsal", "Phalange", "Proximal caudal", "Mid-caudal", "Distal caudal")
-  
 square_matrix<- matrix(nrow = 12,ncol=12,dimnames = list(name,name))
 for(i in 1:12){
   for(j in 1:12){
