@@ -4,3 +4,6 @@
 
 2. Analysis of the time series of monthly temperature
 In this exercise, we will take another look at the hourly weather data measured at the BaoAn International Airport during the past 10 years.
+
+#finished
+thanks TA for checking them！
