@@ -40,5 +40,5 @@ implicit none
 	write(*,*),"belta_1:",belta_1
 	write(*,*),"selta_z:",selta_z
 	print*,""
-
+ 
 end program Cal_SZA
