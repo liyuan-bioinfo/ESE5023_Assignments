@@ -11,7 +11,7 @@ implicit none
 	PI=3.1415926
     call cal_dec_angle(N,delta)
 	print*,"----------------"
-	print*,"|  equation2   |"
+	print*,"|  equation2   |" 
 	print*,"----------------"
     write(*,*),"D1:",delta
 	print*,""
