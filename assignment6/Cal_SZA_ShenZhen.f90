@@ -16,7 +16,7 @@ implicit none
     write(*,*),"D1:",delta
 	print*,""
 
-    LST= 395 !min,14:35-8
+    LST= 875 !min,14:35-8
     Long=114.062996 !degree
     call cal_AST(LST,N,Long,AST_min)
 
